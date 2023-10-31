@@ -7,12 +7,12 @@ const App = () => {
   const [data,setData]=useState([]);
 
   const handleChange=(evt)=> {
-console.log(evt.target.value);
+
 setValue(evt.target.value);
   }
 
   const handleClick=()=> {
-
+setData([...data,value])
   }
   return (
     <>
@@ -30,7 +30,7 @@ setValue(evt.target.value);
       {data.map=(item)=> {
         return(
           <>
-          
+          {item}
           </>
         )
       }}
