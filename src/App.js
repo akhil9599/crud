@@ -1,45 +1,71 @@
-import React from 'react';
+import React from 'react'
 import { useState } from 'react';
+
+
 
 const App = () => {
 
-  const [value,setValue]=useState("");
-  const [data,setData]=useState([]);
+  const [inputdata, setInputdata] = useState("");
+  const [items, setItems] = useState([]);
 
-  const handleChange=(evt)=> {
+  const handleClick = () => {
+    if (!inputdata) {
 
-setValue(evt.target.value);
+    }
+    else {
+      setItems([...items, inputdata]);
+      setInputdata("");
+    }
+
   }
 
-  const handleClick=()=> {
-setData([...data,value])
+  const handleDelete = (id) => {
+    const updateditems = items.filter((elem, ind) => {
+      return ind !== id;
+    });
+
+    setItems(updateditems);
+  }
+
+  const removeAll = () => {
+    setItems([]);
   }
   return (
     <>
-    <div className='main_div'>
-<div className='center_div'>
-  <br />
-  <h1>ToDo List</h1>
-  <br />
-  <input type="text" placeholder='Add Your Item' onChange={handleChange}/>
-  <button onClick={handleClick}> + </button>
-  <ol>
-    <li>Buy Apple</li>
-    <li>{value}</li>
-    <li>
-      {data.map=(item)=> {
-        return(
-          <>
-          {item}
-          </>
-        )
-      }}
-    </li>
-  </ol>
-</div>
-    </div>
+      <div id='main'>
+        <div>Add your list here</div>
+        <div>
+          <input type="text" placeholder='write here' value={inputdata}
+            onChange={(evt) => setInputdata(evt.target.value)}
+          />
+          <button onClick={handleClick}>Add</button>
+        </div>
+
+        <div>
+          {
+            items.map((elem, ind) => {
+              return (
+                <>
+                  <div key={ind} >
+                    {ind + 1}  {elem}
+                    <button onClick={() => handleDelete(ind)}>Dlt</button>
+                  </div>
+                </>
+              )
+            })
+
+
+          }
+
+
+        </div>
+
+        <div>
+          <button onClick={removeAll}>check list</button>
+        </div>
+      </div>
     </>
   )
 }
 
-export default App
+export default App;
